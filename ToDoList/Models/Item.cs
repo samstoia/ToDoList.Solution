@@ -176,6 +176,30 @@ namespace ToDoList.Models
       }
     }
 
+    public static void Delete(int id)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      // string from = "FROM";
+      // cmd.CommandText = @"DELETE "+from+" items WHERE id = "+id+";";
+      cmd.CommandText =@"DELETE FROM items WHERE id = "+id+";";
+      // MySqlParameter thisId = new MySqlParameter();
+      // thisId.ParameterName = "@thisId";
+      // thisId.Value = itemId;
+      // cmd.Parameters.Add(thisId);
+
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+      {
+        if (conn != null)
+        {
+          conn.Dispose();
+        }
+      }
+    }
+
     public int GetCategoryId()
     {
       return _categoryId;
