@@ -69,6 +69,20 @@ namespace ToDoList.Models
       }
     }
 
+    public static void ClearAllWithin(int categoryId)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"DELETE FROM items WHERE category_id = "+categoryId+";";
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+       conn.Dispose();
+      }
+    }
+
     public static Item Find(int id)
     {
       MySqlConnection conn = DB.Connection();
@@ -183,6 +197,7 @@ namespace ToDoList.Models
       var cmd = conn.CreateCommand() as MySqlCommand;
       // string from = "FROM";
       // cmd.CommandText = @"DELETE "+from+" items WHERE id = "+id+";";
+      // "This is a "+animal+" and it "+animalNoise+"."
       cmd.CommandText =@"DELETE FROM items WHERE id = "+id+";";
       // MySqlParameter thisId = new MySqlParameter();
       // thisId.ParameterName = "@thisId";
